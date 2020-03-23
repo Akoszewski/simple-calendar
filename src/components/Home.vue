@@ -11,8 +11,6 @@
 </template>
 
 <script>
-/* eslint no-unused-vars: 1 */
-/* eslint space-before-function-paren: 0 */
 export default {
   name: 'Home',
   data: () => ({
@@ -30,24 +28,24 @@ export default {
     events: []
   }),
   computed: {
-    bubbleX() {
+    bubbleX () {
       return this.bubblex + 'px'
     },
-    bubbleY() {
+    bubbleY () {
       return this.bubbley + 'px'
     },
-    bubbleVisibility() {
+    bubbleVisibility () {
       return this.bubblev
     },
-    bubbleTransform() {
+    bubbleTransform () {
       return this.transformBubble
     },
-    innerTransform() {
+    innerTransform () {
       return this.transformInner
     }
   },
   methods: {
-    async showDetails(e) {
+    async showDetails (e) {
       this.bubblex = 0
       this.bubbley = 0
       this.transformBubble = ''
@@ -73,15 +71,15 @@ export default {
         this.bubblev = 'visible'
       }
     },
-    hideDetails() {
+    hideDetails () {
       this.bubblev = 'hidden'
     },
-    async onMonthRender() {
+    async onMonthRender () {
       this.hideDetails()
       const response = await this.axios.get('http://localhost:5000/months?month=' + this.getCurrentMonth())
       this.events = response.data
     },
-    getCurrentMonth() {
+    getCurrentMonth () {
       if (this.$refs.calendar !== undefined) {
         var date = new Date(this.$refs.calendar.fireMethod('getDate'))
         return date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, '0')
@@ -93,10 +91,10 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.onMonthRender()
   },
-  mounted() {
+  mounted () {
     document.querySelector('[aria-label="next"]').onclick = this.onMonthRender
     document.querySelector('[aria-label="prev"]').onclick = this.onMonthRender
   }
