@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="bubble" class="speech-bubble" v-bind:style="{ top: bubbleY, left: bubbleX, visibility: bubbleVisibility, transform: bubbleTransform }">
-      <span class="inner" v-bind:style="{ transform: innerTransform }">
+      <span class="BubbleText" v-bind:style="{ transform: BubbleTextTransform }">
         <p><strong>{{bubbleTitle}}</strong></p>
         <p>{{bubbleText}}</p>
       </span>
@@ -20,7 +20,7 @@ export default {
     bubbleTitle: 'title',
     bubbleText: 'text',
     transformBubble: '',
-    transformInner: '',
+    transformBubbleText: '',
     config: {
       firstDay: 1,
       defaultView: 'month'
@@ -40,8 +40,8 @@ export default {
     bubbleTransform () {
       return this.transformBubble
     },
-    innerTransform () {
-      return this.transformInner
+    BubbleTextTransform () {
+      return this.transformBubbleText
     }
   },
   methods: {
@@ -49,23 +49,22 @@ export default {
       this.bubblex = 0
       this.bubbley = 0
       this.transformBubble = ''
-      this.transformInner = ''
+      this.transformBubbleText = ''
       this.bubbleTitle = e.title
       this.bubbleText = e.description
       await this.$nextTick()
       const bubble = document.getElementById('bubble')
       if (bubble !== null) {
-        console.log(bubble.offsetWidth)
         this.bubblex = window.event.pageX - bubble.offsetWidth + 20
         this.bubbley = window.event.pageY - bubble.offsetHeight - 25
         if (this.bubblex < 0) {
           this.transformBubble += 'scaleX(-1)'
-          this.transformInner += 'scaleX(-1)'
+          this.transformBubbleText += 'scaleX(-1)'
           this.bubblex = window.event.pageX - 20
         }
         if (this.bubbley < 0) {
           this.transformBubble += ' scaleY(-1)'
-          this.transformInner += ' scaleY(-1)'
+          this.transformBubbleText += ' scaleY(-1)'
           this.bubbley = window.event.pageY + 25
         }
         this.bubblev = 'visible'
@@ -73,6 +72,9 @@ export default {
     },
     hideDetails () {
       this.bubblev = 'hidden'
+    },
+    onResize () {
+      this.hideDetails()
     },
     async onMonthRender () {
       this.hideDetails()
@@ -97,6 +99,7 @@ export default {
   mounted () {
     document.querySelector('[aria-label="next"]').onclick = this.onMonthRender
     document.querySelector('[aria-label="prev"]').onclick = this.onMonthRender
+    window.addEventListener('resize', this.onResize)
   }
 }
 </script>
@@ -131,7 +134,7 @@ export default {
     z-index: 2;
 }
 
-.inner {
+.BubbleText {
   display: inline-block;
 }
 
