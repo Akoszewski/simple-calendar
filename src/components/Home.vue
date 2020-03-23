@@ -48,6 +48,8 @@ export default {
   },
   methods: {
     async showDetails(e) {
+      this.bubblex = 0
+      this.bubbley = 0
       this.transformBubble = ''
       this.transformInner = ''
       this.bubbleTitle = e.title
