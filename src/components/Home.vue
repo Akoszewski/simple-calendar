@@ -2,7 +2,7 @@
   <div>
     <div id="bubble" class="speech-bubble" v-bind:style="{ top: bubbleY, left: bubbleX, visibility: bubbleVisibility, transform: bubbleTransform }">
       <span class="BubbleText" v-bind:style="{ transform: BubbleTextTransform }">
-        <p><strong>{{bubbleTitle}}</strong></p>
+        <p><strong>{{bubbleTitle + " (" + bubbleDate + ")"}}</strong></p>
         <p>{{bubbleText}}</p>
       </span>
     </div>
@@ -16,6 +16,7 @@ export default {
   data: () => ({
     bubblex: 0,
     bubbley: 0,
+    bubbleDate: '',
     bubblev: 'hidden',
     bubbleTitle: 'title',
     bubbleText: 'text',
@@ -52,6 +53,7 @@ export default {
       this.transformBubbleText = ''
       this.bubbleTitle = e.title
       this.bubbleText = e.description
+      this.bubbleDate = e.start.format('L') + ' - ' + e.end.format('L')
       await this.$nextTick()
       const bubble = document.getElementById('bubble')
       if (bubble !== null) {
