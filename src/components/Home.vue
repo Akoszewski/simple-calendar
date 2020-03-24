@@ -53,7 +53,7 @@ export default {
       this.transformBubbleText = ''
       this.bubbleTitle = e.title
       this.bubbleText = e.description
-      this.bubbleDate = e.start.format('L') + ' - ' + e.end.format('L')
+      this.bubbleDate = e.start.format('DD/MM/YYYY') + ' - ' + e.end.format('DD/MM/YYYY')
       await this.$nextTick()
       const bubble = document.getElementById('bubble')
       if (bubble !== null) {
