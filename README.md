@@ -1,6 +1,6 @@
 # simple-calendar
 
-## Project setup
+## Project setup - frontend
 ```
 npm install
 ```
@@ -22,3 +22,18 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## Project setup - backend
+
+### Installs dependences (assuming global installation)
+```
+pip install flask
+pip install flask_cors
+```
+
+### Launches the server
+```
+cd server
+python server.py
+```
